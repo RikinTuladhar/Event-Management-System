@@ -17,6 +17,7 @@ export async function GET(req, { params }) {
       time: event[0].time || "",
       image: event[0].image || "",
       category: event[0].category || "unknown",
+      seats:event[0].seats || "unknown"
     };
     return NextResponse.json(object);
   } catch (error) {

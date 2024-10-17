@@ -29,6 +29,7 @@ export async function POST(req) {
   const time = formData.get("time");
   const image = formData.get("image");
   const category = formData.get("category");
+  const seats= formData.get("seats");
 
   // Check if image is present
   if (!image) {
@@ -57,7 +58,7 @@ export async function POST(req) {
     // Insert into the database
     const db = await connectToDatabase();
     const sql =
-      "INSERT INTO event(`name`, `price`, `date`, `location`, `description`, `time`, `category`, `image`) VALUES (?,?,?,?,?,?,?,?)";
+      "INSERT INTO event(`name`, `price`, `date`, `location`, `description`, `time`, `category`, `image`,seats) VALUES (?,?,?,?,?,?,?,?,?)";
 
     await db.query(sql, [
       name,
@@ -68,6 +69,7 @@ export async function POST(req) {
       time,
       category,
       `/uploads/${image.name}`,
+      seats
     ]);
 
     return NextResponse.json(
@@ -96,6 +98,7 @@ export async function PUT(req) {
   const time = formData.get("time");
   const image = formData.get("image");
   const category = formData.get("category");
+  const seats = formData.get("seats");
 
   // Check if a new file is provided
   if (!image || !image.name) {
@@ -104,7 +107,7 @@ export async function PUT(req) {
       UPDATE event 
       SET name = ?, price = ?, date = ?, location = ?, 
           description = ?, time = ?, category = ?, 
-          image = ? 
+          image = ?,seats = ?
       WHERE id = ?`;
 
     await db.query(sql, [
@@ -116,6 +119,7 @@ export async function PUT(req) {
       time,
       category,
       image,
+      seats,
       id,
     ]);
 
@@ -146,7 +150,7 @@ export async function PUT(req) {
     const sql = `
       UPDATE event 
       SET name = ?, price = ?, date = ?, location = ?, 
-          description = ?, time = ?, category = ?, 
+          description = ?, time = ?, category = ?,seats=?
           image = COALESCE(?, image) 
       WHERE id = ?`;
 
@@ -158,6 +162,7 @@ export async function PUT(req) {
       description,
       time,
       category,
+      seats,
       `/uploads/${image.name}`,
       id,
     ]);

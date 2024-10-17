@@ -7,6 +7,7 @@ import { CalendarDays } from "lucide-react";
 import { Clock } from "lucide-react";
 import { MapPin } from "lucide-react";
 import { Bookmark } from "lucide-react";
+import { Users } from "lucide-react";
 const page = ({ params }) => {
   const { id } = params;
   const user = JSON.parse(window.localStorage.getItem("user"));
@@ -20,6 +21,7 @@ const page = ({ params }) => {
     time: "",
     image: "",
     category: "",
+    seats: "",
   });
   useEffect(() => {
     axios
@@ -47,18 +49,23 @@ const page = ({ params }) => {
             <div className="flex items-center gap-2">
               <CalendarDays />{" "}
               <div>
-                <h4>{event.date}</h4>
+                <h5>{event.date}</h5>
               </div>
             </div>
             <div className="flex items-center gap-2">
               {" "}
               <Clock />
-              <h4>{event.time}</h4>
+              <h5>{event.time}</h5>
             </div>
             <div className="flex items-center gap-2">
               {" "}
               <MapPin />
-              <h4>{event.location}</h4>
+              <h5>{event.location}</h5>
+            </div>
+            <div className="flex items-center gap-2">
+              {" "}
+              <Users />
+              <h5>Total: {event.seats}</h5>
             </div>
           </div>
           <div className="px-10 py-12 ">
@@ -67,14 +74,18 @@ const page = ({ params }) => {
                 {" "}
                 <h5>Rs {event.price}</h5>
               </div>
-             { user.role == "USER" && <div className="px-2 py-1 bg-red-400 rounded-2xl">
-                <h5 className="text-white">Book Now</h5>
-              </div>}
-             { user.role == "USER" && <div className="flex gap-2">
-                {" "}
-                <Bookmark />
-                <h5>Bookmark</h5>
-              </div>}
+              {user.role == "USER" && (
+                <div className="px-2 py-1 bg-red-400 rounded-2xl">
+                  <h5 className="text-white">Book Now</h5>
+                </div>
+              )}
+              {user.role == "USER" && (
+                <div className="flex gap-2">
+                  {" "}
+                  <Bookmark />
+                  <h5>Bookmark</h5>
+                </div>
+              )}
             </div>
           </div>
         </div>

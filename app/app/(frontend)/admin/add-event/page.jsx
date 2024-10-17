@@ -17,6 +17,7 @@ const Page = () => {
     time: "",
     image: null,
     category: "",
+    seats:""
   });
 
   const [errors, setErrors] = useState({}); // Track validation errors
@@ -61,6 +62,7 @@ const Page = () => {
     formData.append("time", event.time);
     formData.append("category", event.category);
     formData.append("image", event.image);
+    formData.append("seats", event.seats);
 
     axios
       .post("/api/event", formData, {
@@ -142,7 +144,16 @@ const Page = () => {
             />
             {errors.price && <p className="text-red-500">{errors.price}</p>}
           </div>
-
+          
+          <div className="mb-3">
+            <label className="form-label">Seats</label>
+            <input
+              type="number"
+              className="form-control"
+              onChange={(e) => setEvent({ ...event, seats: e.target.value })}
+            />
+            {errors.seats && <p className="text-red-500">{errors.seats}</p>}
+          </div>
           <div className="mb-3">
             <label className="form-label">Poster</label>
             <input

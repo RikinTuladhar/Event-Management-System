@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 const Page = ({ params }) => {
   const { id } = params;
   const router = useRouter();
-  
+
   const [event, setEvent] = useState({
     name: "",
     price: "",
@@ -18,6 +18,7 @@ const Page = ({ params }) => {
     time: "",
     image: null,
     category: "",
+    seats: "",
   });
 
   useEffect(() => {
@@ -70,6 +71,7 @@ const Page = ({ params }) => {
     formData.append("time", event.time);
     formData.append("category", event.category);
     formData.append("image", event.image);
+    formData.append("seats", event.seats);
 
     axios
       .put(`/api/event?id=${id}`, formData, {
@@ -122,7 +124,7 @@ const Page = ({ params }) => {
           <div className="mb-3">
             <label className="form-label">Date</label>
             <input
-            value={event.date}
+              value={event.date}
               type="date"
               className="form-control"
               onChange={(e) => setEvent({ ...event, date: e.target.value })}
@@ -133,7 +135,7 @@ const Page = ({ params }) => {
           <div className="mb-3">
             <label className="form-label">Time</label>
             <input
-            value={event.time}
+              value={event.time}
               type="time"
               className="form-control"
               onChange={(e) => setEvent({ ...event, time: e.target.value })}
@@ -164,6 +166,16 @@ const Page = ({ params }) => {
             />
             {errors.price && <p className="text-red-500">{errors.price}</p>}
           </div>
+          <div className="mb-3">
+            <label className="form-label">Seats</label>
+            <input
+              type="number"
+              value={event.seats}
+              className="form-control"
+              onChange={(e) => setEvent({ ...event, seats: e.target.value })}
+            />
+            {errors.price && <p className="text-red-500">{errors.price}</p>}
+          </div>
 
           <div className="mb-3">
             <label className="form-label">Poster</label>
@@ -177,16 +189,18 @@ const Page = ({ params }) => {
 
           <div className="mb-3">
             <label className="form-label">Category</label>
-           <div>
-           <select
-              onChange={(e) => setEvent({ ...event, category: e.target.value })}
-            >
-              <option value="">Select a category</option>
-              <option value="Food">Food</option>
-              <option value="Music">Music</option>
-              <option value="Art">Art</option>
-            </select>
-           </div>
+            <div>
+              <select
+                onChange={(e) =>
+                  setEvent({ ...event, category: e.target.value })
+                }
+              >
+                <option value="">Select a category</option>
+                <option value="Food">Food</option>
+                <option value="Music">Music</option>
+                <option value="Art">Art</option>
+              </select>
+            </div>
             {errors.category && (
               <p className="text-red-500">{errors.category}</p>
             )}
