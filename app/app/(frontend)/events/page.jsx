@@ -3,7 +3,7 @@ import React from 'react'
 const page = () => {
   return (
     <div>
-      This is admin page
+      This is event page
     </div>
   )
 }
