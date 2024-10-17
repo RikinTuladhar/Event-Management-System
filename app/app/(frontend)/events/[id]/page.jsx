@@ -33,55 +33,56 @@ const page = ({ params }) => {
   return (
     <>
       {user.role === "USER" ? <Navbar /> : <AdminNav />}
-      <div className="w-full min-h-screen bg-yellow-200">
+      <div className="w-full min-h-screen ">
         <div className="w-full flex justify-center space-x-10  items-center px-10 h-[20rem] bg-blue-600">
           <div className="w-[20%] h-[90%]">
             <img
-              className="w-full h-full rounded-2xl"
+              className="object-contain w-full h-full rounded-2xl"
               src={event.image}
               alt=""
             />
           </div>
-          <div className=" px-10 ">
+          <div className="px-10 ">
             <h2>{event.name}</h2>
-            <div className="flex gap-2  items-center">
+            <div className="flex items-center gap-2">
               <CalendarDays />{" "}
               <div>
                 <h4>{event.date}</h4>
               </div>
             </div>
-            <div className="flex gap-2  items-center">
+            <div className="flex items-center gap-2">
               {" "}
               <Clock />
               <h4>{event.time}</h4>
             </div>
-            <div className="flex gap-2  items-center">
+            <div className="flex items-center gap-2">
               {" "}
               <MapPin />
               <h4>{event.location}</h4>
             </div>
           </div>
-          <div className=" px-10 py-12 ">
-            <div className="bg-purple-400 border py-3 rounded-3xl flex flex-col px-10 justify-between items-center  gap-2 ">
+          <div className="px-10 py-12 ">
+            <div className="flex flex-col items-center justify-between gap-2 px-10 py-3 bg-purple-400 border rounded-3xl ">
               <div className="flex gap-2">
                 {" "}
                 <h5>Rs {event.price}</h5>
               </div>
-              <div className="bg-red-400 px-2 py-1 rounded-2xl">
+             { user.role == "USER" && <div className="px-2 py-1 bg-red-400 rounded-2xl">
                 <h5 className="text-white">Book Now</h5>
-              </div>
-              <div className="flex gap-2">
+              </div>}
+             { user.role == "USER" && <div className="flex gap-2">
                 {" "}
                 <Bookmark />
                 <h5>Bookmark</h5>
-              </div>
+              </div>}
             </div>
           </div>
         </div>
         <div className="w-[50%] flex justify-center items-center py-5">
           <div>
             <h3>Event Description</h3>
-            <div>
+            <h5 className="text-gray-500">Category: {event.category}</h5>
+            <div className="mt-10">
               <p>{event.description}</p>
             </div>
           </div>

@@ -3,25 +3,48 @@ import React, { useEffect, useState } from "react";
 import AdminNav from "@/components/AdminNav";
 import Link from "next/link";
 import axios from "axios";
+import { Trash2 } from "lucide-react";
+import { Pencil } from "lucide-react";
 const page = () => {
   const [events, setEvents] = useState([]);
-  useEffect(()=>{
-    axios.get("/api/event")
-    .then((res)=>{
-      console.log(res.data)
-      setEvents(res.data)
-    }).catch((err)=>console.log(err))
-  },[])
+  const [reload, setReload] = useState(false);
+  useEffect(() => {
+    axios
+      .get("/api/event")
+      .then((res) => {
+        setEvents(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, [reload]);
+
+  function handleDelete(id) {
+    const isDelete = confirm("Are you sure you want to delete?");
+    if (isDelete) {
+      console.log(id);
+      axios
+        .delete(`/api/event?id=${id}`)
+        .then((res) => {
+          console.log(res.data.message);
+          alert(res.data.message);
+          setReload(!reload);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      return;
+    }
+  }
 
   return (
     <div className="w-full min-h-screen">
       <AdminNav />
-      <div className="w-full flex items-center justify-evenly">
+      <div className="flex items-center w-full justify-evenly">
         <div></div>
         <h2 className="my-10 text-center">All Events</h2>
         <div>
-          <button className="px-3 py-2 border bg-black ">
-            <Link href="/admin/add-event">Add</Link>
+          <button className="px-3 py-2 bg-black border rounded-xl ">
+            <Link href="/admin/add-event" className="text-white no-underline ">
+              Add
+            </Link>
           </button>
         </div>
       </div>
@@ -43,18 +66,33 @@ const page = () => {
           </thead>
           <tbody>
             {events &&
-              events.map((e, i) => (
+              events.map((event, i) => (
                 <tr key={i}>
                   <td>{i + 1}</td>
-                  <td>{e.name}</td>
-                  <td>{e.date}</td>
-                  <td>{e.time}</td>
-                  <td>{e.price}</td>
-                  <td>{e.location}</td>
-                  <td>{e.category}</td>
-                  <td><Link href={`/events/${e.id}`}>View</Link></td>
-                  <td>Edit</td>
-                  <td>Delete</td>
+                  <td>{event.name}</td>
+                  <td>{event.date}</td>
+                  <td>{event.time}</td>
+                  <td>{event.price}</td>
+                  <td>{event.location}</td>
+                  <td>{event.category}</td>
+
+                  <td>
+                    <Link href={`/events/${event.id}`}>View</Link>
+                  </td>
+                  <td>
+                    {" "}
+                    <Link className="text-black" href={`/admin/edit-event/${event.id}`}>
+                      {" "}
+                      <Pencil />
+                    </Link>
+                  </td>
+                  <td
+                    className="cursor-pointer"
+                    onClick={(e) => handleDelete(event.id)}
+                  >
+                    {" "}
+                    <Trash2 />
+                  </td>
                 </tr>
               ))}
           </tbody>
