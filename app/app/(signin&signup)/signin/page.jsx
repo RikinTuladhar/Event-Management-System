@@ -1,11 +1,12 @@
 "use client";
+import Navbar from "@/components/Navbar";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const page = () => {
-  const router = useRouter()
+  const router = useRouter();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -15,23 +16,25 @@ const page = () => {
     axios
       .post("/api/admin/login", user)
       .then((res) => {
-        console.log(res)
-        window.localStorage.setItem("user",JSON.stringify(res.data))
-        alert("Welcome user "  + res.data.firstname)
-        if(res.data.role == "ADMIN"){
-          router.push("/admin")
-        }else{
-          router.push("/user")
+        console.log(res);
+        window.localStorage.setItem("user", JSON.stringify(res.data));
+        alert("Welcome user " + res.data.firstname);
+        if (res.data.role == "ADMIN") {
+          router.push("/admin");
+        } else {
+          router.push("/user");
         }
       })
       .catch((err) => {
-        alert(err.response.data.message)
-        console.log(err)
+        alert(err.response.data.message);
+        console.log(err);
       });
     console.log(user);
   }
   return (
-    <div className="flex items-center justify-center w-full min-h-screen">
+   <>
+   <Navbar/>
+   <div className="flex items-center justify-center w-full min-h-screen">
       <div className="w-[25%] border px-10 py-20">
         <form onSubmit={handleSubmit}>
           <h1>Sign in</h1>
@@ -61,16 +64,7 @@ const page = () => {
               onChange={(e) => setUser({ ...user, password: e.target.value })}
             />
           </div>
-          <div className="mb-3 form-check">
-            <input
-              type="checkbox"
-              className="form-check-input"
-              id="exampleCheck1"
-            />
-            <label className="form-check-label" htmlFor="exampleCheck1">
-              Check me out
-            </label>
-          </div>
+
           <div className="flex flex-col w-full gap-y-5">
             <button type="submit" className="btn btn-primary">
               Submit
@@ -79,9 +73,21 @@ const page = () => {
               <Link href={"/"}> Go back</Link>
             </button>
           </div>
+         <div className="mt-5">
+         <p>Create a account for</p>
+          <div>
+            {" "}
+            <Link href={"/signup/admin"}>Sign up for Admin</Link>
+          </div>
+          <div>
+            {" "}
+            <Link href={"/signup/user"}>Sign up for User</Link>
+          </div>
+         </div>
         </form>
       </div>
     </div>
+   </>
   );
 };
 
