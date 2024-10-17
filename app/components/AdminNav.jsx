@@ -6,7 +6,7 @@ export default function Navbar() {
     const router = useRouter();
     function handleLogout(){
         alert("Log out")
-        localStorage.removeItem("user")
+        window.localStorage.removeItem("user")
         router.push("/")
     }
   return (

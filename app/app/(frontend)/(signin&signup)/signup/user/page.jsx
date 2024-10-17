@@ -3,14 +3,15 @@ import Navbar from "@/components/Navbar";
 import axios from "axios";
 import Link from "next/link";
 import React, { useState } from "react";
-
+import { useRouter } from "next/navigation";
 const page = () => {
+  const router = useRouter();
   const [user, setUser] = useState({
     firstname: "",
     lastname: "",
     email: "",
     password: "",
-    role: "ADMIN",
+    role: "USER",
   });
 
   function handleSubmit(e) {
@@ -20,6 +21,7 @@ const page = () => {
       .post("/api/user/register", user)
       .then((res) => {
         console.log(res);
+        router.push("/signin")
         alert(res.data.message);
       })
       .catch((err) => {

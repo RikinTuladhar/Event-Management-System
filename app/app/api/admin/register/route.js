@@ -42,7 +42,7 @@ export async function POST(request) {
     ]);
 
     return NextResponse.json(
-      { message: "User registered successfully!" },
+      { message: "Admin registered successfully!" },
       { status: 201 }
     );
   } catch (err) {

@@ -2,9 +2,11 @@
 import Navbar from "@/components/Navbar";
 import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const page = () => {
+  const router = useRouter();
   const [user, setUser] = useState({
     firstname: "",
     lastname: "",
@@ -20,11 +22,13 @@ const page = () => {
       .post("/api/admin/register", user)
       .then((res) => {
         console.log(res);
-        alert(res.data.message)
+        router.push("/signin")
+        alert(res.data.message);
       })
       .catch((err) => {
-        console.log(err)
-        alert(err.response.data.message)
+        console.log(err);
+
+        alert(err.response.data.message);
       });
   }
 
