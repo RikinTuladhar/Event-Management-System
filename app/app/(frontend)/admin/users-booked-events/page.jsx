@@ -21,7 +21,7 @@ const page = () => {
       <div className="w-full min-h-screen px-10 py-10 space-y-10 ">
         {events?.length > 0 ? (
           events.map((event) => (
-            <div className="w-full flex bg-slate-300 h-[18rem]">
+            <div className="flex w-full bg-slate-300 ">
               <div className="w-[30%]  h-full bg-red-400">
                 <img
                   className="w-full h-full"

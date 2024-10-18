@@ -21,6 +21,8 @@ const Page = ({ params }) => {
     seats: "",
   });
 
+  console.log(event);
+
   useEffect(() => {
     axios
       .get(`/api/event/${id}`)
@@ -59,7 +61,7 @@ const Page = ({ params }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    
     if (!validate()) return; // Stop submission if validation fails
 
     const formData = new FormData();
@@ -197,6 +199,10 @@ const Page = ({ params }) => {
               >
                 <option value="">Select a category</option>
                 <option value="Food">Food</option>
+                <option value="Sports">Sports</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Online Events">Online Events</option>
+                <option value="Exhibition">Exhibition</option>
                 <option value="Music">Music</option>
                 <option value="Art">Art</option>
               </select>

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 
 const Page = () => {
   const router = useRouter();
-  
+
   const [event, setEvent] = useState({
     name: "",
     price: "",
@@ -17,7 +17,7 @@ const Page = () => {
     time: "",
     image: null,
     category: "",
-    seats:""
+    seats: "",
   });
 
   const [errors, setErrors] = useState({}); // Track validation errors
@@ -25,7 +25,6 @@ const Page = () => {
   const validate = () => {
     const newErrors = {};
 
-   
     if (!event.name) newErrors.name = "Event name is required.";
     if (!event.description) newErrors.description = "Description is required.";
     if (!event.date) newErrors.date = "Event date is required.";
@@ -35,8 +34,8 @@ const Page = () => {
     if (!event.category) newErrors.category = "Category is required.";
     if (!event.image) newErrors.image = "Event poster is required.";
 
-   
-    if (event.price && event.price < 0) newErrors.price = "Price cannot be negative.";
+    if (event.price && event.price < 0)
+      newErrors.price = "Price cannot be negative.";
 
     // File type validation for image
     const validImageTypes = ["image/jpeg", "image/png", "image/jpg"];
@@ -99,10 +98,14 @@ const Page = () => {
             <textarea
               cols={80}
               className="px-2 py-2 border"
-              onChange={(e) => setEvent({ ...event, description: e.target.value })}
+              onChange={(e) =>
+                setEvent({ ...event, description: e.target.value })
+              }
               placeholder="Enter the description of this event"
             ></textarea>
-            {errors.description && <p className="text-red-500">{errors.description}</p>}
+            {errors.description && (
+              <p className="text-red-500">{errors.description}</p>
+            )}
           </div>
 
           <div className="mb-3">
@@ -132,7 +135,9 @@ const Page = () => {
               className="form-control"
               onChange={(e) => setEvent({ ...event, location: e.target.value })}
             />
-            {errors.location && <p className="text-red-500">{errors.location}</p>}
+            {errors.location && (
+              <p className="text-red-500">{errors.location}</p>
+            )}
           </div>
 
           <div className="mb-3">
@@ -144,7 +149,7 @@ const Page = () => {
             />
             {errors.price && <p className="text-red-500">{errors.price}</p>}
           </div>
-          
+
           <div className="mb-3">
             <label className="form-label">Seats</label>
             <input
@@ -166,17 +171,25 @@ const Page = () => {
 
           <div className="mb-3">
             <label className="form-label">Category</label>
-           <div>
-           <select
-              onChange={(e) => setEvent({ ...event, category: e.target.value })}
-            >
-              <option value="">Select a category</option>
-              <option value="Food">Food</option>
-              <option value="Music">Music</option>
-              <option value="Art">Art</option>
-            </select>
-           </div>
-            {errors.category && <p className="text-red-500">{errors.category}</p>}
+            <div>
+              <select
+                onChange={(e) =>
+                  setEvent({ ...event, category: e.target.value })
+                }
+              >
+                <option value="">Select a category</option>
+                <option value="Food">Food</option>
+                <option value="Sports">Sports</option>
+                <option value="Comedy">Comedy</option>
+                <option value="Online Events">Online Events</option>
+                <option value="Exhibition">Exhibition</option>
+                <option value="Music">Music</option>
+                <option value="Art">Art</option>
+              </select>
+            </div>
+            {errors.category && (
+              <p className="text-red-500">{errors.category}</p>
+            )}
           </div>
 
           <button type="submit" className="btn btn-primary">
