@@ -36,10 +36,10 @@ export default function Navbar() {
             All Event
           </Link>
           <Link
-            href="/admin/booked-event"
+            href="/admin/users-booked-events"
             className="text-white no-underline hover:text-gray-300"
           >
-            Show Booked Event
+            Show Users Booked Event
           </Link>
         </div>
 
