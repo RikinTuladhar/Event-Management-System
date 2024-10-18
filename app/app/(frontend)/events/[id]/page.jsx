@@ -128,7 +128,7 @@ const page = ({ params }) => {
                   <h5>Bookmark</h5>
                 </div>
               )} */}
-              {!user && (
+              {/* {!user && (
                 <Link
                   href="/signin"
                   className="text-black no-underline cursor-pointer"
@@ -139,7 +139,7 @@ const page = ({ params }) => {
                     <h5>Bookmark</h5>
                   </div>
                 </Link>
-              )}
+              )} */}
             </div>
           </div>
         </div>

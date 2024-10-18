@@ -47,7 +47,7 @@ export default function Navbar() {
           >
             Booked By You
           </Link>
-          <Link href="/about" className="text-gray-700 no-underline hover:text-blue-500">
+          <Link href="/user/recommendation" className="text-gray-700 no-underline hover:text-blue-500">
             Recommendation
           </Link>
         </div>

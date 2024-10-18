@@ -8,7 +8,6 @@ const page = () => {
   const [events, setEvents] = useState([]);
   useEffect(() => {
     axios.get("/api/event").then((res) => {
-      
       setEvents(res.data);
     });
   }, []);
@@ -29,7 +28,11 @@ const page = () => {
               <div className="card-body">
                 <h5 className="card-title">{event.name}</h5>
                 <p className="text-gray-500">{event.category}</p>
-                <p className="card-text">{event.description}</p>
+                <p class="card-text px-2">
+                  {event?.description.length > 100
+                    ? event?.description.slice(0, 100) + "..."
+                    : event?.description}
+                </p>
                 <Link href={`/events/${event.id}`} className="btn btn-primary">
                   View
                 </Link>
