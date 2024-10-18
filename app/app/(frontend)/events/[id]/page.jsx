@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "@/components/Navbar";
+import UserNav from "@/components/UserNav";
 import AdminNav from "@/components/AdminNav";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -8,9 +8,16 @@ import { Clock } from "lucide-react";
 import { MapPin } from "lucide-react";
 import { Bookmark } from "lucide-react";
 import { Users } from "lucide-react";
+import Link from "next/link";
+import Navbar from "@/components/Navbar";
 const page = ({ params }) => {
   const { id } = params;
-  const user = JSON.parse(window.localStorage.getItem("user"));
+  const [user, setUser] = useState("");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      setUser(JSON.parse(window.localStorage.getItem("user")));
+    }
+  }, []);
   const [event, setEvent] = useState({
     id: "",
     name: "",
@@ -32,9 +39,31 @@ const page = ({ params }) => {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  function handleBookmark() {
+    alert("Clicked on bookmark");
+  }
+
+  function handleBook() {
+    // alert("Clicked on Book");
+    const value = {
+      event_id: event.id,
+      user_id: user.id,
+    };
+    axios
+      .post("/api/booked", value)
+      .then((res) => {
+        console.log(res.data.message);
+        alert(res.data.message);
+      })
+      .catch((err) => console.log(err));
+  }
+
   return (
     <>
-      {user.role === "USER" ? <Navbar /> : <AdminNav />}
+      {user?.role && user?.role === "USER" && <UserNav />}
+      {user?.role && user?.role === "ADMIN" && <AdminNav />}
+      {!user && <Navbar />}
       <div className="w-full min-h-screen ">
         <div className="w-full flex justify-center space-x-10  items-center px-10 h-[20rem] bg-blue-600">
           <div className="w-[20%] h-[90%]">
@@ -74,17 +103,42 @@ const page = ({ params }) => {
                 {" "}
                 <h5>Rs {event.price}</h5>
               </div>
-              {user.role == "USER" && (
-                <div className="px-2 py-1 bg-red-400 rounded-2xl">
+              {user?.role == "USER" && (
+                <div
+                  onClick={handleBook}
+                  className="px-2 py-1 bg-red-400 cursor-pointer rounded-2xl"
+                >
                   <h5 className="text-white">Book Now</h5>
                 </div>
               )}
-              {user.role == "USER" && (
-                <div className="flex gap-2">
+              {!user && (
+                <Link href="/signin" className="no-underline cursor-pointer">
+                  <div className="px-2 py-1 bg-red-400 rounded-2xl">
+                    <h5 className="text-white">Book Now</h5>
+                  </div>
+                </Link>
+              )}
+              {/* {user?.role == "USER" && (
+                <div
+                  onClick={handleBookmark}
+                  className="flex gap-2 cursor-pointer"
+                >
                   {" "}
                   <Bookmark />
                   <h5>Bookmark</h5>
                 </div>
+              )} */}
+              {!user && (
+                <Link
+                  href="/signin"
+                  className="text-black no-underline cursor-pointer"
+                >
+                  <div className="flex gap-2">
+                    {" "}
+                    <Bookmark />
+                    <h5>Bookmark</h5>
+                  </div>
+                </Link>
               )}
             </div>
           </div>
