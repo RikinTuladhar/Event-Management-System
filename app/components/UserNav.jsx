@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 export default function Navbar() {
   const [user, setUser] = useState(null);
   const router = useRouter();
+  
   useEffect(() => {
     // Access localStorage only on the client
     const storedUser = localStorage.getItem("user");
@@ -29,7 +30,7 @@ export default function Navbar() {
         {/* Navbar Brand (Logo) */}
         <Link href="/user" className="flex items-center justify-center">
           <img
-            src="/path/to/logo.png" // Update with your logo path
+            src="/logo.png" // Update with your logo path
             alt="Logo"
             className="h-10"
           />
@@ -37,16 +38,16 @@ export default function Navbar() {
 
         {/* Navigation Links */}
         <div className="flex space-x-4">
-          <Link href="/user" className="flex items-center justify-center">
+          <Link href="/user" className="flex items-center justify-center no-underline">
             Home Page
           </Link>
           <Link
             href={`/user/bookedByUser/${user?.id}`}
-            className="text-gray-700 hover:text-blue-500"
+            className="text-gray-700 no-underline hover:text-blue-500"
           >
             Booked By You
           </Link>
-          <Link href="/about" className="text-gray-700 hover:text-blue-500">
+          <Link href="/about" className="text-gray-700 no-underline hover:text-blue-500">
             Recommendation
           </Link>
         </div>

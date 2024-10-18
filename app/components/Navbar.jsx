@@ -11,7 +11,7 @@ export default function Navbar() {
         {/* Navbar Brand (Logo) */}
         <Link href="/" className="flex items-center justify-center">
           <img
-            src="/path/to/logo.png" // Update with your logo path
+            src="/logo.png" // Update with your logo path
             alt="Logo"
             className="h-10"
           />
@@ -19,15 +19,15 @@ export default function Navbar() {
 
         {/* Navigation Links */}
         <div className="flex space-x-4">
-          <Link href="/" className="text-gray-700 hover:text-blue-500">
+          <Link href="/" className="text-gray-700 no-underline hover:text-blue-500">
             Home
           </Link>
-          <Link href="/events" className="text-gray-700 hover:text-blue-500">
+          <Link href="/events" className="text-gray-700 no-underline hover:text-blue-500">
             Events
           </Link>
         </div>
 
-        <Link href="/signin" className="text-blue-500 hover:text-blue-700">
+        <Link href="/signin" className="text-blue-500 no-underline hover:text-blue-700">
           Sign In
         </Link>
       </div>

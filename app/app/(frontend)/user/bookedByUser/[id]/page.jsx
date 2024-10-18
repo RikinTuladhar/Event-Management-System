@@ -41,7 +41,7 @@ const UserBookedEventsPage = ({ params }) => {
   return (
     <>
       <Navbar />
-      <div className="w-full min-h-screen px-10 py-10 space-y-10 bg-green-300">
+      <div className="w-full min-h-screen px-10 py-10 space-y-10">
         <table className="table">
           <thead>
             <tr>

@@ -16,6 +16,23 @@ const page = () => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    const { firstname, lastname, email, password } = user;
+    if (!firstname || !lastname || !email || !password) {
+      alert("All fields required");
+      return
+    }
+    if(firstname.length < 1){
+      alert("Enter valid first name")
+      return
+    }
+    if(lastname.length < 1){
+      alert("Enter valid last name")
+      return
+    }
+    if(password.length < 6){
+      alert("Length of password must be greater than 6")
+      return
+    }
     console.log(user);
     axios
       .post("/api/user/register", user)
@@ -32,9 +49,9 @@ const page = () => {
 
   return (
     <div>
-      <Navbar />
+
       <div className="flex items-center justify-center w-full min-h-screen py-10">
-        <div className="w-[25%] border px-10 py-20">
+        <div className="w-[25%] border px-10 py-10 rounded-2xl">
           <form onSubmit={handleSubmit}>
             <h1>Sign up for user</h1>
 

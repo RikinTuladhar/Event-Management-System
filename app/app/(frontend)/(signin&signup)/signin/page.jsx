@@ -33,9 +33,9 @@ const page = () => {
   }
   return (
    <>
-   <Navbar/>
-   <div className="flex items-center justify-center w-full min-h-screen">
-      <div className="w-[25%] border px-10 py-20">
+  
+   <div className="flex items-center justify-center w-full min-h-screen py-10">
+      <div className="w-[25%] border px-10 py-10 rounded-2xl">
         <form onSubmit={handleSubmit}>
           <h1>Sign in</h1>
           <div className="mb-3">

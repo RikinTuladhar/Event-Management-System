@@ -18,11 +18,16 @@ const page = () => {
   function handleSubmit(e) {
     e.preventDefault();
     console.log(user);
+    const { firstname, lastname, email, password } = user;
+    if (!firstname || !lastname || !email || !password) {
+      alert("All fields required");
+      return
+    }
     axios
       .post("/api/admin/register", user)
       .then((res) => {
         console.log(res);
-        router.push("/signin")
+        router.push("/signin");
         alert(res.data.message);
       })
       .catch((err) => {
@@ -34,9 +39,8 @@ const page = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="flex items-center justify-center w-full min-h-screen py-10">
-        <div className="w-[25%] border px-10 py-20">
+        <div className="w-[25%] border px-10 py-10 rounded-2xl">
           <form onSubmit={handleSubmit}>
             <h1>Sign up for admin</h1>
 

@@ -147,7 +147,7 @@ const page = ({ params }) => {
           <div>
             <h3>Event Description</h3>
             <h5 className="text-gray-500">Category: {event.category}</h5>
-            <div className="mt-10">
+            <div className="absolute">
               <p>{event.description}</p>
             </div>
           </div>
