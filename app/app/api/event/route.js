@@ -150,8 +150,8 @@ export async function PUT(req) {
     const sql = `
       UPDATE event 
       SET name = ?, price = ?, date = ?, location = ?, 
-          description = ?, time = ?, category = ?,seats=?
-          image = COALESCE(?, image) 
+          description = ?, time = ?, category = ?,seats=?,
+          image = (?) 
       WHERE id = ?`;
 
     await db.query(sql, [
